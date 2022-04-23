@@ -1,0 +1,333 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+#include<iostream>
+#define LEN sizeof(struct data)
+using namespace std;
+struct data{
+
+	int a;
+	char b[10];
+	char c[10];
+	int d;
+	long e;
+	char f[10];
+	char g[10];
+	char h[10];
+	char i[10];
+	long j;
+}xx[100];
+void caidan()
+{
+	cout<<"\n"<<"\n"<<"              通信录"<<"\n"<<"\n"<<"\n";
+	cout<<"                  主菜单"<<"\n";
+	cout<<"       1、添加新的学生信息"<<"\n";
+	cout<<"       2、修改学生信息"<<"\n";
+	cout<<"       3、查找学生信息"<<"\n";
+	cout<<"       4、学生信息总览"<<"\n";
+	cout<<"       5、退出系统"<<"\n";
+	cout<<"\n\n\n\n";
+	cout<<"请输入指令并敲击回车";
+}
+void tianjia()
+{
+	cout<<"请依次输入序号、姓名、性别、年龄、电话、籍贯、现工作单位、家庭住址、通信地址、邮编\n";
+	data a;
+	cin>>a.a >>a.b >>a.c >>a.d>>a.e>>a.f>>a.g>>a.h>>a.i>>a.j;
+	cout<<"\n\n录入成功，输入1回到主菜单";
+	FILE * fp;
+	
+	fp=fopen("D://d.dat","ab");
+	fseek(fp,0,2);
+	fwrite(&a,LEN,1,fp);
+	fclose(fp);
+}
+void xiugai()
+{
+	FILE * fp;
+	fp=fopen("D://d.dat","rb+");
+	rewind(fp);
+	int i=1;
+	cout<<"请输入想要修改记录的学生序号:";
+		int b;
+		cin >>b;
+	while(!feof(fp))
+	{
+		fread(&xx[i],LEN,1,fp);
+		int j;
+		j=i;
+		if(xx[j].a==b)
+		{
+			cout<<"\n目标材料记录如下\n";
+			cout<<"1序号\t2姓名\t3性别\t4年龄\t5电话\t6籍贯\t7现工作单位\t8家庭住址\t9通信地址\t10邮编\n";
+			cout<<xx[j].a <<"\t"<<xx[j].b <<"\t"<<xx[j].c <<"\t"<<xx[j].d <<"\t\t"<<xx[j].e <<"\t\t"<<xx[j].f <<"\t\t"<<xx[j].g <<"\t"<<xx[j].h <<"\t"<<xx[j].i <<"\t"<<xx[j].j <<"\n";
+			cout<<"请输入您想要修改学生的编号：";
+				int a;
+				
+				for(;;)
+				{cin>>a;
+				if(a==1)
+				{
+					cout<<"改为";
+					cin>>xx[j]. a;
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==2)
+				{
+					cout<<"改为";
+					cin>>xx[j]. b;				
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==3)
+				{
+					cout<<"改为";
+					cin>>xx[j]. c;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==4)
+				{
+					cout<<"改为";
+					cin>>xx[j]. d;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==5)
+				{
+					cout<<"改为";
+					cin>>xx[j]. e;
+					
+				fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==6)
+				{
+					cout<<"改为";
+					cin>>xx[j]. f;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==7)
+				{
+					cout<<"改为";
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==8)
+				{
+					cout<<"改为";
+					cin>>xx[j]. h;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==9)
+				{
+					cout<<"改为";
+					cin>>xx[j]. i;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else if(a==10)
+				{
+					cout<<"改为";
+					cin>>xx[j]. j;
+					
+					fseek(fp,-LEN,1);
+					fwrite(&xx[j],LEN,1,fp);
+					fclose(fp);
+				}
+				else break;
+
+				cout<<"\n如继续修改该学生其他数据请输入相应编号，退出输入0";
+	}
+				
+				break;
+}
+		}
+	}
+
+void chazhao()
+{
+	cout<<"1序号\t2姓名\t3现工作单位\t4家庭住址\5通信地址\n";
+	cout<<"请输入查找学生序号：";
+	int a;
+	cin>>a;
+	int f=0;
+	if(a==1)
+	{
+		int b;
+		cout<<"\n输入查找编号:";cin>>b;
+		cout<<"\n目标材料：\n";
+		cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+		
+		FILE * fp;
+		fp=fopen("D://d.dat","rb");
+		fseek(fp,0,0);
+		data a;
+		while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		if(a. a==b)
+		{
+			f=1;
+			cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+		}
+	}
+	}
+	else if(a==2)
+	{
+		char b[10];
+		cout<<"\n输入查找学生姓名:";cin>>b;
+		cout<<"\n目标学生：\n";
+		cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+		
+		FILE * fp;
+		fp=fopen("D://d.dat","rb");
+		fseek(fp,0,0);
+		data a;
+		while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		if(strcmp(a.b ,b)==0)
+		{
+			f=1;
+			cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+		}
+	}
+	}
+	else if(a==3)
+	{
+		char b[10];
+		cout<<"\n输入现工作单位:";cin>>b;
+		cout<<"\n目标材料：\n";
+		cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+		
+		FILE * fp;
+		fp=fopen("D://d.dat","rb");
+		fseek(fp,0,0);
+		data a;
+		while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		if(strcmp(a.g ,b)==0)
+		{
+			f=1;
+			cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+		}
+	}
+	}
+	else if(a==4)
+	{
+		char b[10];
+		cout<<"\n输入查找家庭住址:";cin>>b;
+		cout<<"\n目标学生：\n";
+		cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+		
+		FILE * fp;
+		fp=fopen("D://d.dat","rb");
+		fseek(fp,0,0);
+		data a;
+		while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		if(a. h==b)
+		{
+			f=1;
+			cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+		}
+	}
+	}
+	else if(a==5)
+	{
+		char b[10];
+		cout<<"\n输入查找通信住址:";cin>>b;
+		cout<<"\n目标学生：\n";
+		cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+		
+		FILE * fp;
+		fp=fopen("D://d.dat","rb");
+		fseek(fp,0,0);
+		data a;
+		while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		if(a. i==b)
+		{
+			f=1;
+			cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+		}
+	}
+	}
+	if(f==0)
+		cout<<"\n未找到符合条件学生信息";
+	cout<<"\n输入0返回主菜单";
+	int x;
+	cin>>x;
+	}
+	void qvanlan()
+	{
+		FILE * fp;
+	fp=fopen("D://d.dat","rb");
+	fseek(fp,0,0);
+	data a;
+	cout<<"序号\t姓名\t性别\t年龄\t电话\t籍贯\t现工作单位\t家庭住址\t通信地址\t邮编\n";
+	while(!feof(fp))
+	{
+		fread(&a,LEN,1,fp);
+		cout<<"\n"<<a.a <<"\t"<<a.b <<"\t"<<a.c <<"\t"<<a.d <<"\t\t"<<a.e <<"\t\t"<<a.f <<"\t\t"<<a.g <<"\t"<<a.h <<"\t"<<a.i <<"\t"<<a.j ;
+	}
+	cout<<"\r";cout<<"                                                                                                                                                                                            ";
+	cout<<"\n输入0回到主菜单";
+	int y;
+	cin>>y;
+	fclose(fp);
+	}
+	int main()
+	{
+		int x;
+		for(;;)
+		{
+			system("cls");
+			caidan();
+			cin>>x;
+			if(x==1)
+			{
+				system("cls");
+				tianjia();
+			}
+			else if(x==2)
+			{
+				system("cls");
+				xiugai();
+			}
+			else if(x==3)
+			{
+				system("cls");
+				chazhao();
+			}
+			else if(x==4)
+			{
+				system("cls");
+				qvanlan();
+			}
+			else break;
+		}
+		return 0;
+	}
